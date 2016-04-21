@@ -53,7 +53,7 @@ put '/queue/:name' do
     client.publish(q, params[:data])
 
     status 201
-    body 'SUCCESS ' + q + " " + params[:data]
+    body 'SUCCESS'
   else
     status 400
     body 'NO-DATA'
@@ -83,8 +83,8 @@ get '/queue/:name' do
       
     rescue Timeout::Error
       client.unsubscribe(q)
-      status 200
-      body "NO MESSAGES"
+      status 204
+      body ""
     end
 
 

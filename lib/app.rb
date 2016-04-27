@@ -47,7 +47,6 @@ end
 
 put '/queue/:name' do
   q = mq(params[:name])
-  puts q
 
   if params[:data]
     client.publish(q, params[:data])
@@ -67,7 +66,6 @@ get '/queue/:name' do
 
     # make sure we are not currently subscribed to any queues
     client.unsubscribe(q)
-    puts q
 
     begin
       client.subscribe(q) do |msg|
@@ -86,7 +84,6 @@ get '/queue/:name' do
       status 204
       body ""
     end
-
 
   rescue Exception => e
     halt 500, "ERR:#{e}"
